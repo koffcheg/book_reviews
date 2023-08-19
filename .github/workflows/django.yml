@@ -39,7 +39,7 @@ jobs:
 
     - name: Apply Migrations
       env:
-        DATABASE_URL: postgres://postgres:postgres@localhost:5432/github_actions
+        DATABASE_URL: postgres://postgres:postgres@localhost:5432/bookreviewsdb
       run: |
         pipenv run python manage.py makemigrations
         pipenv run python manage.py migrate
