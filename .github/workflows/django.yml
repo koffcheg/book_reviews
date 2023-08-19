@@ -45,5 +45,5 @@ jobs:
         pipenv run python manage.py migrate
 
     - name: Run server
-      run: python manage.py runserver
+      run: pipenv run python manage.py runserver
 
