@@ -42,5 +42,5 @@ jobs:
         DATABASE_URL: postgres://postgres:postgres@localhost:5432/bookreviewsdb
       run: |
         pipenv run python manage.py makemigrations
-        pipenv run python manage.py migrate
+        pipenv run python manage.py migrate --noinput
 
