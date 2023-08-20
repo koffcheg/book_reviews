@@ -14,6 +14,7 @@ class Review(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     review_text = models.TextField()
     rating = models.PositiveIntegerField()
+    date = models.DateField(default='2000-07-01')
 
     def __str__(self):
         return f"Review for {self.book.title}"
