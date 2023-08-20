@@ -2,7 +2,12 @@
 
 from django.db import migrations, models
 
-
+def set_publisher(apps, schema_editor):
+    Book = apps.get_model('reviews', 'Book')
+    for book in Book.objects.all():
+        book.publisher = "Publisher"
+        book.save()
+        
 class Migration(migrations.Migration):
 
     dependencies = [
