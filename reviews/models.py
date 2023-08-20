@@ -4,6 +4,7 @@ class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=100)
     publisher = models.CharField(max_length=100, null=True)
+    release_date = models.DateField(default='2000-07-01')
 
     def __str__(self):
         return self.title
