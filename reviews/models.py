@@ -5,6 +5,7 @@ class Book(models.Model):
     author = models.CharField(max_length=100)
     publisher = models.CharField(max_length=100, null=True)
     release_date = models.DateField(default='2000-07-01')
+    amount = models.IntegerField()
 
     def __str__(self):
         return self.title
