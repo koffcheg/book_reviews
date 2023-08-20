@@ -14,7 +14,7 @@ class BookModelTest(TestCase):
         book = Book.objects.get(title='Test Book')
         self.assertEqual(book.author, 'Test Author')
         self.assertEqual(book.publisher, 'Test Publiher')
-        self.assertEqual(book.release_date, '2028-08-01')
+        self.assertEqual(book.release_date, '2028, 08, 01')
 
 # View Tests
 class BookListViewTest(TestCase):
