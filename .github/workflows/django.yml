@@ -2,44 +2,36 @@ name: Django CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
-  deploy:
-
+  build:
     runs-on: ubuntu-latest
-
-    services:
-      postgres:
-        image: postgres:13
-        env:
-          POSTGRES_USER: koffcheg
-          POSTGRES_PASSWORD: 14881488
-          POSTGRES_DB: bookreviewsdb
-        ports:
-          - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Python 3.9
+    - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: 3.9
 
     - name: Install pipenv
-      run: |
+      run: | 
         python -m pip install --upgrade pip
         pip install pipenv
 
-    - name: Install Dependencies using Pipenv
-      run: pipenv install --deploy --ignore-pipfile
+    - name: Install dependencies
+      run: pipenv install  --deploy --ignore-pipfile
 
-    - name: Apply Migrations
-      env:
-        DATABASE_URL: postgres://postgres:postgres@localhost:5432/bookreviewsdb
+    - name: Run migrate.sh
       run: |
-        pipenv run python manage.py migrate --noinput
+        chmod +x migrate.sh
+        ./migrate.sh
+
+    - name: Run tests
+      run: pipenv run python manage.py test
+
 
