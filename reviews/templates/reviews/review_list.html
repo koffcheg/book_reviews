@@ -1,0 +1,5 @@
+{% for review in reviews %}
+    <h2>{{ review.book.title }}</h2>
+    <p>Review: {{ review.review_text }}</p>
+    <p>Rating: {{ review.rating }}</p>
+{% endfor %}

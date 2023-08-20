@@ -1,22 +1,20 @@
-#!/bin/bash
+!/bin/bash
 
-# Function to check for migration conflicts
-check_migration_conflicts() {
-  # Run 'python manage.py showmigrations --list' and filter lines ending with ']' (indicating leaf nodes)
-  CONFLICTS=$(pipenv run python manage.py showmigrations --list | grep '\]$' | wc -l)
+git fetch origin main
 
-  if [ "$CONFLICTS" -gt "1" ]; then
-    echo "Migration conflict detected. Please resolve manually."
-    exit 1
-  fi
-}
+# Check for migration conflicts by comparing local and remote branches
+git diff HEAD..origin/main --name-only -- '*/migrations/*.py' | grep '*/migrations/*.py'
 
-git pull origin main
+# If diff command returns non-empty output, there are migration conflicts
+if [ $? -eq 0 ]; then
+  echo 'No migration conflicts detected.'
+else
+  echo 'Migration conflict detected. Exiting.'
+  exit 1
+fi
 
-check_migration_conflicts
-
+# Create new migrations
 pipenv run python manage.py makemigrations
 
-check_migration_conflicts
-
+# Apply migrations
 pipenv run python manage.py migrate

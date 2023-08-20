@@ -21,6 +21,7 @@ from reviews import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('books/', views.book_list, name='book_list'),
+    path('reviews/', views.review_list, name='review_list'),
     path('add_book/', views.add_book, name='add_book'),
     path('add_review/', views.add_review, name='add_review'),
 ]

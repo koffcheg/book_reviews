@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Book
+from .models import Book, Review
 from .forms import BookForm, ReviewForm
 
 def add_book(request):
@@ -25,3 +25,7 @@ def add_review(request):
 def book_list(request):
     books = Book.objects.all()
     return render(request, 'reviews/book_list.html', {"books" : books})
+
+def review_list(request):
+    reviews = Review.objects.all()
+    return render(request, 'reviews/review_list.html', {'reviews': reviews})
