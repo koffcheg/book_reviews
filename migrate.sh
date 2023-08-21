@@ -13,9 +13,3 @@ else
   echo "$CONFLICT_FILES"
   exit 1
 fi
-
-# Create new migrations
-pipenv run python manage.py makemigrations
-
-# Apply migrations
-pipenv run python manage.py migrate

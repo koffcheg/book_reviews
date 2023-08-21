@@ -7,7 +7,7 @@ on:
   pull_request:
     branches:
       - main
-      
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,8 +19,6 @@ jobs:
           POSTGRES_USER: koffcheg
           POSTGRES_PASSWORD: 14881488
           POSTGRES_DB: bookreviewsdb
-        ports:
-          - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
@@ -40,10 +38,16 @@ jobs:
     - name: Install dependencies
       run: pipenv install  --deploy --ignore-pipfile
 
-    - name: Run migrate.sh
+    - name: Run migration check
       run: |
         chmod +x migrate.sh
         ./migrate.sh
+
+    - name: Run migration
+      run: |
+        pipenv shell
+        python manage.py makemigrations
+        python manage.py migrate
 
     - name: Run tests
       run: pipenv run python manage.py test
