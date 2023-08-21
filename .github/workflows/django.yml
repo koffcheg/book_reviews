@@ -44,12 +44,6 @@ jobs:
         ./migrate.sh
 
     - name: Run migration
-      env:
-        DB_HOST: postgres
-        DB_PORT: 5432
-        DB_NAME: bookreviewsdb
-        DB_USER: koffcheg
-        DB_PASSWORD: 14881488
       run: |
         pipenv run python manage.py makemigrations
         pipenv run python manage.py migrate
