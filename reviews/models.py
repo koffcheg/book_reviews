@@ -15,6 +15,7 @@ class Review(models.Model):
     review_text = models.TextField()
     rating = models.PositiveIntegerField()
     date = models.DateField(default='2000-07-01')
+    reviewer_name = models.TextField(max_length=24, default='Reviewer')
 
     def __str__(self):
         return f"Review for {self.book.title}"
